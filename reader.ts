@@ -1,6 +1,6 @@
-import * as path from "https://deno.land/std/path/mod.ts";
+import * as path from "https://deno.land/std@0.100.0/path/mod.ts";
 
-const getHomeDirectory = () => {
+export const getHomeDirectory = () => {
   const homeDirectory = Deno.env.get("HOME");
 
   if (!homeDirectory) {

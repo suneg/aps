@@ -3,22 +3,22 @@
 import * as parser from "./parser.ts";
 import * as reader from "./reader.ts";
 import * as writer from "./writer.ts";
-import { compile } from "./configuration.ts";
+import { compile, DEFAULT } from "./configuration.ts";
 import { areArraysEqual } from "./utils.ts";
 
-const [configSource, credentialsSource] = await Promise.all([
-  reader.readConfigFile(),
+const [credentialsSource] = await Promise.all([
   reader.readCredentialsFile(),
 ]);
 
 const credentials = parser.parseConfiguration(credentialsSource);
 
 if (
+  Deno.args.length === 0 ||
   areArraysEqual(Deno.args, ["-l"]) ||
   areArraysEqual(Deno.args, ["--list"])
 ) {
   const output = Object.keys(credentials.profiles)
-    .filter((p) => p !== "default")
+    .filter((p) => p !== DEFAULT)
     .map((p) => `${p === credentials.current ? "*" : " "} ${p}`)
     .join("\n");
 
