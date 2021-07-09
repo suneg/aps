@@ -1,3 +1,5 @@
+#!/usr/bin/env -S deno run --allow-env=HOME --allow-read=${HOME}/.aws/ --allow-write=${HOME}/.aws/
+
 import * as parser from "./parser.ts";
 import * as reader from "./reader.ts";
 import * as writer from "./writer.ts";
