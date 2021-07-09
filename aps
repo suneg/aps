@@ -1,2 +1,2 @@
 #!/bin/bash
-deno run --allow-env=HOME --allow-read=${HOME}/.aws/ --allow-write=${HOME}/.aws/ app.ts $*
+deno run --allow-env=HOME --allow-read=${HOME}/.aws/ --allow-write=${HOME}/.aws/ $(dirname "$0")/app.ts $*
