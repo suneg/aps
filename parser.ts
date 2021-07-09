@@ -1,14 +1,18 @@
+import { areArraysEqual} from "./utils.ts";
+
 type Sections = {
   [name: string]: string[];
 };
 
+const DEFAULT = "default";
+
 class Configuration {
   profiles: Sections;
-  current: string;
+  current: string | null;
 
   constructor() {
     this.profiles = {};
-    this.current = "test";
+    this.current = DEFAULT;
   }
 }
 
@@ -16,19 +20,11 @@ const isNewSection = (line: string) => {
   return line.match(/\[.*\]/);
 };
 
-const areArraysEqual = (a: string[], b: string[]) => {
-  if (a.length !== b.length) return false;
-
-  return a
-    .map((element, i) => element === b[i])
-    .every((equal) => equal === true);
-};
-
 const findProfileNameFromDefault = (sections: Sections): string => {
-  const defaultConfig = sections["default"];
+  const defaultConfig = sections[DEFAULT];
 
   const activeName = Object.keys(sections)
-    .filter((key) => key != "default")
+    .filter((key) => key != DEFAULT)
     .find((key) => areArraysEqual(sections[key], defaultConfig));
 
   if (!activeName) {

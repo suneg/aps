@@ -8,4 +8,4 @@ const [config, credentials] = await Promise.all([
 
 const configuration = parser.parseConfiguration(config);
 
-console.log(configuration);
+console.log(`Current AWS profile: ${configuration.current}`);
