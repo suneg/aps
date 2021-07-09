@@ -4,6 +4,7 @@ export const getHomeDirectory = () => {
   const homeDirectory = Deno.env.get("HOME");
 
   if (!homeDirectory) {
+    console.log("No HOME environment variable defined.");
     Deno.exit(1);
   }
 
