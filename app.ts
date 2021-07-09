@@ -1,5 +1,7 @@
 import * as parser from "./parser.ts";
 import * as reader from "./reader.ts";
+import * as writer from "./writer.ts";
+import { compile } from "./configuration.ts";
 import { areArraysEqual } from "./utils.ts";
 
 const [configSource, credentialsSource] = await Promise.all([
@@ -7,21 +9,24 @@ const [configSource, credentialsSource] = await Promise.all([
   reader.readCredentialsFile(),
 ]);
 
-const config = parser.parseConfiguration(credentialsSource);
+const credentials = parser.parseConfiguration(credentialsSource);
 
-//console.log(config)
-
-console.log(Deno.args);
 if (
   areArraysEqual(Deno.args, ["-l"]) ||
   areArraysEqual(Deno.args, ["--list"])
 ) {
-  const output = Object.keys(config.profiles)
-    .filter((profile) => profile !== "default")
-    .map((profile) => `${profile === config.current ? "*" : " "} ${profile}`)
+  const output = Object.keys(credentials.profiles)
+    .filter((p) => p !== "default")
+    .map((p) => `${p === credentials.current ? "*" : " "} ${p}`)
     .join("\n");
 
   console.log(output);
-}
+} else if (Deno.args.length === 1) {
+  if (credentials.current) {
+    credentials.setActive(Deno.args[0]);
+  }
 
-//console.log(`Current AWS profile: ${config.current}`);
+  writer.writeCredentialsFile(compile(credentials));
+
+  console.log(`Current AWS profile: ${credentials.current}`);
+}

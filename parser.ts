@@ -1,20 +1,5 @@
 import { areArraysEqual} from "./utils.ts";
-
-type Sections = {
-  [name: string]: string[];
-};
-
-const DEFAULT = "default";
-
-class Configuration {
-  profiles: Sections;
-  current: string | null;
-
-  constructor() {
-    this.profiles = {};
-    this.current = DEFAULT;
-  }
-}
+import { Sections, Configuration, DEFAULT } from "./configuration.ts";
 
 const isNewSection = (line: string) => {
   return line.match(/\[.*\]/);
@@ -26,11 +11,6 @@ const findProfileNameFromDefault = (sections: Sections): string => {
   const activeName = Object.keys(sections)
     .filter((key) => key != DEFAULT)
     .find((key) => areArraysEqual(sections[key], defaultConfig));
-
-  // if (!activeName) {
-  //   console.log("Default configuration does not match any named profile.");
-  //   Deno.exit(1);
-  // }
 
   return activeName || "";
 };
@@ -62,7 +42,7 @@ export const parseConfiguration = (configSource: string): Configuration => {
     configuration.profiles[DEFAULT] = [];
   }
 
-  configuration.current = findProfileNameFromDefault(configuration.profiles);
+  configuration.setActive(findProfileNameFromDefault(configuration.profiles));
 
   return configuration;
 };
