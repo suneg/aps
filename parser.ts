@@ -27,12 +27,12 @@ const findProfileNameFromDefault = (sections: Sections): string => {
     .filter((key) => key != DEFAULT)
     .find((key) => areArraysEqual(sections[key], defaultConfig));
 
-  if (!activeName) {
-    console.log("Default configuration does not match any named profile.");
-    Deno.exit(1);
-  }
+  // if (!activeName) {
+  //   console.log("Default configuration does not match any named profile.");
+  //   Deno.exit(1);
+  // }
 
-  return activeName;
+  return activeName || "";
 };
 
 export const parseConfiguration = (configSource: string): Configuration => {
@@ -56,6 +56,10 @@ export const parseConfiguration = (configSource: string): Configuration => {
     }
 
     configuration.profiles[currentProfile!].push(line);
+  }
+
+  if(!configuration.profiles[DEFAULT]) {
+    configuration.profiles[DEFAULT] = [];
   }
 
   configuration.current = findProfileNameFromDefault(configuration.profiles);
