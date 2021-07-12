@@ -9,14 +9,14 @@ export const getHomeDirectory = () => {
   }
 
   return homeDirectory;
-}
+};
 
 export const readConfigFile = () => {
   const configFile = path.join(getHomeDirectory(), ".aws/config");
-  return Deno.readTextFile(configFile)
-}
+  return Deno.readTextFile(configFile);
+};
 
 export const readCredentialsFile = () => {
   const credentialsFile = path.join(getHomeDirectory(), ".aws/credentials");
-  return Deno.readTextFile(credentialsFile)
-}
+  return Deno.readTextFile(credentialsFile);
+};

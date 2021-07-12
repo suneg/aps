@@ -1,5 +1,5 @@
-import { areArraysEqual} from "./utils.ts";
-import { Sections, Configuration, DEFAULT } from "./configuration.ts";
+import { areArraysEqual } from "./utils.ts";
+import { Configuration, DEFAULT, Sections } from "./configuration.ts";
 
 const isNewSection = (line: string) => {
   return line.match(/\[.*\]/);
@@ -38,7 +38,7 @@ export const parseConfiguration = (configSource: string): Configuration => {
     configuration.profiles[currentProfile!].push(line);
   }
 
-  if(!configuration.profiles[DEFAULT]) {
+  if (!configuration.profiles[DEFAULT]) {
     configuration.profiles[DEFAULT] = [];
   }
 

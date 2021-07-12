@@ -25,6 +25,6 @@ export class Configuration {
 
 export const compile = ({ profiles }: Configuration): string => {
   return Object.keys(profiles)
-    .map(name => `[${name}]\n${profiles[name].join("\n")}`)
+    .map((name) => `[${name}]\n${profiles[name].join("\n")}`)
     .join("\n");
 };
