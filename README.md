@@ -12,7 +12,7 @@ git clone https://github.com/suneg/aps.git ~/.aps
 
 Add the following line to your ~/.bashrc
 ```bash
-export PATH="$PATH:~/aps/bin"
+export PATH="$PATH:~/.aps/bin"
 ```
 
 
