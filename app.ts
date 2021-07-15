@@ -2,7 +2,6 @@ import * as parser from "./parser.ts";
 import * as reader from "./reader.ts";
 import * as writer from "./writer.ts";
 import { compile, DEFAULT } from "./configuration.ts";
-import { areArraysEqual } from "./utils.ts";
 
 const [credentialsSource] = await Promise.all([
   reader.readCredentialsFile(),
@@ -10,11 +9,7 @@ const [credentialsSource] = await Promise.all([
 
 const credentials = parser.parseConfiguration(credentialsSource);
 
-if (
-  Deno.args.length === 0 ||
-  areArraysEqual(Deno.args, ["-l"]) ||
-  areArraysEqual(Deno.args, ["--list"])
-) {
+if (Deno.args.length === 0) {
   const output = Object.keys(credentials.profiles)
     .filter((p) => p !== DEFAULT)
     .map((p) => `${p === credentials.current ? "*" : " "} ${p}`)
