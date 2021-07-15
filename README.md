@@ -7,7 +7,7 @@ Deno runtime required. Get it from https://deno.land
 
 ## Setup
 ```bash
-git clone https://github.com/suneg/aps ~/.aps
+git clone https://github.com/suneg/aps.git ~/.aps
 ```
 
 Add the following line to your ~/.bashrc
